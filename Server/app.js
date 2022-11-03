@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const routePath = require('./routers/routesPath');
+const mongoose = require('mongoose');
 
 
 // Express app
@@ -14,11 +15,18 @@ app.use((req, res, next) => {
 })
 
 
+// Database Connection
+mongoose.connect(process.env.DB_URL)
+    .then(() => {
+        // Listening
+       app.listen(process.env.PORT, () => {
+           console.log('The app is listening on port', process.env.PORT);
+       })
+    }).catch((error) => {
+        console.log(error);
+    })
+
 // Routes
 app.use('/Records', routePath);
 
 
-// Listening
-app.listen(process.env.PORT, () => {
-    console.log('The app is listening on port', process.env.PORT);
-})
