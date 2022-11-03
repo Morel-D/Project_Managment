@@ -1,6 +1,6 @@
 const express = require('express');
-
 const routers = express.Router();
+const records = require('../model/model');
 
 // CRUD Opertaion
 
@@ -10,8 +10,16 @@ routers.get('/', (req, res) => {
 })
 
 // POST date (CREATE)
-routers.post('/', (req, res) => {
-    res.json({msg : "Insert some data"})
+routers.post('/', async (req, res) => {
+
+    const { userName, workTitle, startDate, finishDate } = req.body;
+
+    try {
+        const report = await records.create({ userName, workTitle, startDate, finishDate });
+        res.status(200).json(report);
+    } catch(error) {
+        res.status(400).json({error: error.message})
+    }
 })
 
 // GET single data
