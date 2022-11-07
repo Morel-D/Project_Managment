@@ -1,5 +1,10 @@
 import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useRecordsContext } from "../hooks/useRecordsContext";
+
+
+// date-fns
+import {formatDistanceToNow} from 'date-fns';
 
 const animation = {
     hidden: {
@@ -17,7 +22,25 @@ const animation = {
 }
 
 
-const Reports = ({record}) => {
+const Reports = ({ record }) => {
+
+    const { dispatch } = useRecordsContext()
+    const handleDelete = () => 
+    {
+        fetch('/Records/'+record._id, {
+            method: 'DELETE'
+        }).then(data => {
+            data.json()
+
+            if (data.ok)
+            {
+                dispatch({type: 'DELETE_RECORDS', payload: data})
+            }
+        })
+        window.location.reload(true);
+        }
+
+
 
     return ( 
         <React.Fragment>
@@ -34,7 +57,7 @@ const Reports = ({record}) => {
                                     <h3 className="text-primary ">{record.workTitle}</h3>
                                 </div>
                                 <div className="col text-end px-5">
-                                    <i className="text-secondary">12 minutes ago</i>
+                                    <i className="text-secondary">{formatDistanceToNow(new Date(record.createdAt), {addSuffix: true})}</i>
                                 </div>
                             </div>
     
@@ -46,10 +69,10 @@ const Reports = ({record}) => {
                         <div className="row">
                             <div className="col">
                                 <label><b>Comment</b></label><br/>
-                                    <small><i>{record.comment}</i> </small>   
+                        <small><i>{record.comment}</i></small>   
                             </div>
                             <div className="col text-end px-5 my-2">
-                                    <a href="" className="btn"><i class="bi bi-trash text-danger"></i></a>
+                                    <button type="submit" className="btn" onClick={handleDelete}><i class="bi bi-trash text-danger"></i></button>
                                     <a href="" className="btn"><i class="bi bi-eye text-warning"></i></a>
                                     <button className="btn"><i class="bi bi-pencil text-primary"></i></button>
                             </div>    

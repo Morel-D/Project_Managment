@@ -12,7 +12,7 @@ const getData = async (req, res) =>
         .then((results) => {
         res.json(results)
     }).catch((error) => {
-        console.log('Something went wrong', error)
+        // res.status(404).json(error)
     })
 }   
 
@@ -23,7 +23,6 @@ const getAllData = (req, res) => {
         .then((results) => {
         res.json(results)
         }).catch((error) => {
-        console.log('Something went wrong', error)
     })
 }
 
@@ -38,7 +37,7 @@ const getSingleData = (req, res) => {
             res.json(results)
             
     }).catch((error) => {
-        console.log('Something went wrong', error)
+        res.status(404).json(error)
     })
 }
 
@@ -53,8 +52,8 @@ const deleteData = (req, res) => {
         .then(results => {
         res.json(results)
         }).catch(error => {
-            res.json({ err: " Something went wrong" })
-            console.log(error)
+            res.status(404).json(error)
+            
     })
 } 
 
@@ -75,8 +74,7 @@ const updateData = (req, res) => {
         .then(results => {
         res.json(results)
         }).catch(error => {
-            res.json({ err: "Something went wrong" })
-            console.log(error)
+            res.status(404).json(error)
     })
 
 }

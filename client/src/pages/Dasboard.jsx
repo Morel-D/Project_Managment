@@ -1,13 +1,13 @@
 import { useEffect } from "react";
-import { useState } from "react";
-import { json } from "react-router-dom";
+import ModalForm from "../components/modalForm";
 import Reports from "../components/reports";
+import { useRecordsContext } from "../hooks/useRecordsContext";
 
 
 const Dasboard = () => {
 
 
-    const [records, setRecords] = useState(null);
+    const {records, dispatch } = useRecordsContext();
 
     useEffect(() => {
 
@@ -19,10 +19,10 @@ const Dasboard = () => {
                 }
                 return resource.json()
             }).then(data => {
-            setRecords(data)
+                dispatch({ type: 'SET_RECORDS', payload: data})
         })
        
-    }, ['/Records'])
+    }, [dispatch])
 
 
 
@@ -31,7 +31,7 @@ const Dasboard = () => {
             <div className="row">
                 <div className="col text-start"><h3>Report Scripts</h3></div>
                 <div className="col text-end">
-                    <button className="btn btn-dark">Add Report</button>
+                    <ModalForm />
             </div>
             <div className="content py-5">
               {records && records.map((record) => (

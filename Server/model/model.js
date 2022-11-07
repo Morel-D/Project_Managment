@@ -5,11 +5,11 @@ const Schema = mongoose.Schema;
 
 const recordsSchema = new Schema(
     {
-        userName: String,
-        workTitle: String,
-        startDate: String,
-        finishDate: String,
-        comment: String
+        userName: { type: String, required: true},
+        workTitle: { type: String, required: true},
+        startDate: { type: String, required: true},
+        finishDate: { type: String, required: true},
+        comment: { type: String, required: true}
     },{timestamps: true}
 );
 
