@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const routePath = require('./routers/routesPath');
+const routeAuth = require('./routers/userPath');
 const mongoose = require('mongoose');
 
 
@@ -26,7 +27,9 @@ mongoose.connect(process.env.DB_URL)
         console.log(error);
     })
 
+
 // Routes
 app.use('/Records', routePath);
+app.use('/', routeAuth);
 
 
