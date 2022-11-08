@@ -1,4 +1,13 @@
 const User = require('../model/userModel');
+const jwt = require('jsonwebtoken');
+
+
+// function to generate web token
+
+const creatoken = (_id) =>
+{
+    return jwt.sign({ _id }, process.env.SECRETE, { expiresIn: '3d' });
+    }
 
 
 
@@ -16,7 +25,13 @@ const userSignup = async (req, res) => {
 
     try {
         const user = await User.signup(userName, email, password)
-        res.status(200).json({ userName, user })
+
+        // Create the token
+
+        const token = creatoken(user._id);
+
+
+        res.status(200).json({ userName, email, token })
     } catch (error)
     {
         res.status(400).json({error: error.message})
