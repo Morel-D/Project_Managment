@@ -13,8 +13,19 @@ const creatoken = (_id) =>
 
 // Login procedure
 
-const userLogin = (req, res) => {
-    res.json({messegs : 'Login complete'})
+const userLogin = async (req, res) => {
+    const {email, password} = req.body;
+
+    try {
+        const user = await User.login(email, password)
+
+        // create token
+        const token = creatoken(user._id)
+
+        res.status(200).json({email, token})
+    } catch(error) {
+        res.status(400).json({error : error.message})
+    }
 }
 
 
