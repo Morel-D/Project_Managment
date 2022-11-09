@@ -15,15 +15,17 @@ const Navbar = () => {
                 {/* <!-- notifications  --> */}
                 <li className="nav-item mx-4">
                     <div className="navbar mx-auto">
-                        <form action="" className="form">
+                        {/* <form action="" className="form">
                             <div className="input-group">
                                 <input type="text" className="form-control mx-5" placeholder="Search an article" id="serachInput" />
                               </div>
-                        </form>
+                        </form> */}
                     </div>
-                </li>
+                    </li>
+                    <li className="nav-item mx-4">Login</li>
+                    <li className="nav-item mx-4"><Link id="sign" to="/Signup">Sign Up</Link></li>
                 {/* <!-- globe  --> */}
-                <li className="nav-item mx-4"><a href="" className="text-secondary"><i className="fa fa-user" data-toggle="tooltip" title="Your Profile"></i></a></li>
+               
             </ul>
         </div>
     </nav>
