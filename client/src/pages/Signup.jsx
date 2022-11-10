@@ -1,18 +1,19 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useSignup } from "../hooks/useSignup";
 
 const Sigup = () => {
 
     const [userName, setUserName] = useState();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
+    const { signup, loading, error } = useSignup();
 
-
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
 
         e.preventDefault();
 
-        console.log(userName, email, password);
+        await signup(userName, email, password);
     }
 
 
@@ -47,7 +48,9 @@ const Sigup = () => {
                             className="form-control" />
                     </label>
                     
-                    <button className="btn btn-primary">Sign up</button> <br />   
+                    <button className="btn btn-primary" disabled={loading}>Sign up</button> <br />   
+
+                    {error && <div className="card p-3 text-center text-danger" id="box">{ error }</div>  }
                     
                     <Link to="/Login">Already have an account ?</Link>
             </form>

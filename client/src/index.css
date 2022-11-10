@@ -15,3 +15,8 @@ code {
 #sign {
   text-decoration: none;
 }
+
+#box {
+  background-color: rgb(255, 170, 170);
+  border-color: none;
+}
