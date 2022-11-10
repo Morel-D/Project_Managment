@@ -1,7 +1,16 @@
 import { Link } from "react-router-dom";
+import { useLogout } from "../hooks/useLogout";
 
 
 const Navbar = () => {
+    const { logout } = useLogout();
+
+    const handleLogoutClick = () => {
+
+       logout()
+    }
+
+
     return ( 
 
         <nav className="navbar p-2 shadow-sm bg-body navbar-expand-lg">
@@ -22,8 +31,9 @@ const Navbar = () => {
                         </form> */}
                     </div>
                     </li>
-                    <li className="nav-item mx-4">Login</li>
-                    <li className="nav-item mx-4"><Link id="sign" to="/Signup">Sign Up</Link></li>
+                    <li><button className=" mx-4 btn btn-outline-primary" onClick={handleLogoutClick}>Logout</button></li>
+                    <li className="nav-item mx-4 mt-2">Login</li>
+                    <li className="nav-item mx-4 mt-2"><Link id="sign" to="/Signup">Sign Up</Link></li>
                 {/* <!-- globe  --> */}
                
             </ul>
