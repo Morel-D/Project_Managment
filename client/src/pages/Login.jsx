@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useLogin } from "../hooks/useLogin";
 
 
 const Login = () => {
 
 
+    const { login, error, loading } = useLogin();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
 
@@ -13,7 +15,7 @@ const Login = () => {
 
         e.preventDefault();
 
-        console.log(email, password);
+        login(email, password);
     }
 
 
@@ -41,7 +43,9 @@ const Login = () => {
                         className="form-control" />
                 </label>
                 
-                <button className="btn btn-primary">Login</button> <br />   
+                    <button className="btn btn-primary" disabled={loading}>Login</button> <br />  
+
+                {error && <div className="card p-3 text-center text-danger" id="box">{ error }</div>  }    
                 
                 <Link to="/Signup">Don't have an account ?</Link>
         </form>
