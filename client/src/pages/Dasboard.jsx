@@ -2,16 +2,26 @@ import { useEffect } from "react";
 import ModalForm from "../components/modalForm";
 import Reports from "../components/reports";
 import { useRecordsContext } from "../hooks/useRecordsContext";
+import { useAuthContext } from "../hooks/useAuthContext"
 
 
 const Dasboard = () => {
 
 
-    const {records, dispatch } = useRecordsContext();
+    const { records, dispatch } = useRecordsContext();
+    const { user } = useAuthContext();
 
     useEffect(() => {
 
-        fetch('/Records')
+        if (!user)
+        {
+            return
+        }
+            fetch('/Records',
+            {
+                headers: { 'Authorization': `Bearer ${user.token}` }
+            }
+        )
             .then(resource => {
                 if (!resource.ok)
                 {
@@ -20,9 +30,11 @@ const Dasboard = () => {
                 return resource.json()
             }).then(data => {
                 dispatch({ type: 'SET_RECORDS', payload: data})
-        })
+            })
+            
+           
        
-    }, [dispatch])
+    }, [dispatch, user])
 
 
 

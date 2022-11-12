@@ -1,6 +1,7 @@
 import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRecordsContext } from "../hooks/useRecordsContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 
 // date-fns
@@ -24,11 +25,14 @@ const animation = {
 
 const Reports = ({ record }) => {
 
+    
+    const { user } = useAuthContext()
     const { dispatch } = useRecordsContext()
     const handleDelete = () => 
     {
         fetch('/Records/'+record._id, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: { 'Authorization': `Bearer ${user.token}` }
         }).then(data => {
             data.json()
 

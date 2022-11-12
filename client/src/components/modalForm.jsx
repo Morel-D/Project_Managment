@@ -1,11 +1,13 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { useRecordsContext } from "../hooks/useRecordsContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 
 const ModalForm = () => {
 
     const { dispatch } = useRecordsContext();
+    const { user } = useAuthContext();
 
     const [userName, setUserName] = useState('');
     const [workTitle, setWorkTitle] = useState('');
@@ -20,11 +22,21 @@ const ModalForm = () => {
         e.preventDefault();
 
         const records = { userName, workTitle, startDate, finishDate, comment };
+
+        if (!user)
+        {
+            setError("You must logged in")
+            return
+        }
+        
         
         fetch('/Records', {
             method: 'POST',
             body: JSON.stringify(records), 
-            headers: { 'Content-Type': 'application/json' }
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user.token}`
+            }
         }).then(data => {
             data.json()
 
