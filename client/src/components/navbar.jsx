@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
+import { useAuthContext } from "../hooks/useAuthContext";
 import { useLogout } from "../hooks/useLogout";
 
 
 const Navbar = () => {
     const { logout } = useLogout();
+
+    const {user} = useAuthContext() 
 
     const handleLogoutClick = () => {
 
@@ -19,24 +22,22 @@ const Navbar = () => {
             </Link>
 
         {/* <!-- option  --> */}
-        <div className="conatiner ms-auto p-3">
-            <ul className="navbar-nav">
-                {/* <!-- notifications  --> */}
-                <li className="nav-item mx-4">
-                    <div className="navbar mx-auto">
-                        {/* <form action="" className="form">
-                            <div className="input-group">
-                                <input type="text" className="form-control mx-5" placeholder="Search an article" id="serachInput" />
-                              </div>
-                        </form> */}
-                    </div>
-                    </li>
-                    <li><button className=" mx-4 btn btn-outline-primary" onClick={handleLogoutClick}>Logout</button></li>
-                    <li className="nav-item mx-4 mt-2">Login</li>
-                    <li className="nav-item mx-4 mt-2"><Link id="sign" to="/Signup">Sign Up</Link></li>
-                {/* <!-- globe  --> */}
-               
-            </ul>
+            <div className="conatiner ms-auto p-3">
+            
+                {user && (
+                    <ul className="navbar-nav">
+                        <li> {user.userName}  <button className=" mx-4 btn btn-outline-primary" onClick={handleLogoutClick}>Logout</button></li>
+                    </ul>
+                )}
+                    
+
+                {!user && (
+                     <ul className="navbar-nav">
+                     <li className="nav-item mx-4 mt-2">Login</li>
+                     <li className="nav-item mx-4 mt-2"><Link id="sign" to="/Signup">Sign Up</Link></li>
+             </ul>
+               )}
+                
         </div>
     </nav>
 

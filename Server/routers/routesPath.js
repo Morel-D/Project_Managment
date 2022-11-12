@@ -1,6 +1,12 @@
 const express = require('express');
-const routers = express.Router();
 const controller = require('../controller/controller')
+const requireAuth = require('../middleware/requireAuth');
+
+const routers = express.Router();
+
+
+// require auth for all projects 
+routers.use(requireAuth); 
 
 
 // CRUD Opertaion
