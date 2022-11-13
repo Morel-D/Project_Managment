@@ -6,7 +6,7 @@ import { useLogout } from "../hooks/useLogout";
 const Navbar = () => {
     const { logout } = useLogout();
 
-    const {user} = useAuthContext() 
+    const { user } = useAuthContext() 
 
     const handleLogoutClick = () => {
 
@@ -26,14 +26,14 @@ const Navbar = () => {
             
                 {user && (
                     <ul className="navbar-nav">
-                        <li> {user.userName}  <button className=" mx-4 btn btn-outline-primary" onClick={handleLogoutClick}>Logout</button></li>
+                        <li> {user.email}  <button className=" mx-4 btn btn-outline-primary" onClick={handleLogoutClick}>Logout</button></li>
                     </ul>
                 )}
                     
 
                 {!user && (
                      <ul className="navbar-nav">
-                     <li className="nav-item mx-4 mt-2">Login</li>
+                     <li className="nav-item mx-4 mt-2"><Link id="sign" to="/Login">Login</Link></li>
                      <li className="nav-item mx-4 mt-2"><Link id="sign" to="/Signup">Sign Up</Link></li>
              </ul>
                )}

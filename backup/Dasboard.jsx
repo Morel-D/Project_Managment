@@ -12,29 +12,26 @@ const Dasboard = () => {
     const { user } = useAuthContext();
 
     useEffect(() => {
-   
-
-        const fetchRecords = async () => {
-            const resource = await fetch('/Records',
-                {
-                    headers: {
-                        'Authorization': `Bearer ${user.token}`
-                    }
-                });
-            
-            const json = await resource.json()
-
-            if (resource.ok)
-            {
-                dispatch({ type: 'SET_RECORDS', payload: json})
-            }
-            
-        }
 
         if (user)
         {
-            fetchRecords()    
-        }     
+
+        }  
+            fetch('/Records',
+            {
+                headers: { 'Authorization': `Bearer ${user.token}` }
+            }
+        )
+            .then(resource => {
+                if (!resource.ok)
+                {
+                    throw Error('Something is wrong')
+                }
+                return resource.json()
+            }).then(data => {
+                dispatch({ type: 'SET_RECORDS', payload: data})
+            })
+        
        
     }, [dispatch, user])
 
@@ -59,3 +56,5 @@ const Dasboard = () => {
 }
  
 export default Dasboard;
+
+// "proxy": "http://localhost:4000"
