@@ -5,7 +5,10 @@ const mongoose = require('mongoose');
 // POST date (CREATE)
 const getData = async (req, res) =>
 {
-    const record = new records(req.body)
+
+    const user_id = req.user._id; 
+    const {userName, workTitle, startDate, finishDate, comment} = req.body
+    const record = new records({userName, workTitle, startDate, finishDate, comment, user_id})
     record.save();
 
     records.find()
@@ -19,7 +22,8 @@ const getData = async (req, res) =>
 
 // // GET all data (READ)
 const getAllData = (req, res) => {
-    records.find().sort({ createdAt: -1 })
+    const user_id = req.user._id; 
+    records.find({user_id}).sort({ createdAt: -1 })
         .then((results) => {
         res.json(results)
         }).catch((error) => {

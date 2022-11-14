@@ -9,7 +9,8 @@ const recordsSchema = new Schema(
         workTitle: { type: String, required: true},
         startDate: { type: String, required: true},
         finishDate: { type: String, required: true},
-        comment: { type: String, required: true}
+        comment: { type: String, required: true },
+        user_id: {type: String, required: true}
     },{timestamps: true}
 );
 

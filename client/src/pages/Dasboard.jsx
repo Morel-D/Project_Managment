@@ -47,7 +47,7 @@ const Dasboard = () => {
                 <div className="col text-end">
                     <ModalForm />
             </div>
-            <div className="content py-5">
+            <div className="content py-1">
               {records && records.map((record) => (
                       <Reports key={record._id} record ={record}  />
                   ))

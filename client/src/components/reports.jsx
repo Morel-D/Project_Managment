@@ -58,16 +58,16 @@ const Reports = ({ record }) => {
                             <div className="row">
                                 <div className="col">
                                     <small className="text-secondary">Done by {record.userName}</small>
-                                    <h3 className="text-primary ">{record.workTitle}</h3>
                                 </div>
                                 <div className="col text-end px-5">
                                     <i className="text-secondary">{formatDistanceToNow(new Date(record.createdAt), {addSuffix: true})}</i>
                                 </div>
                             </div>
+                                  <h5 className="text-primary my-2  ">{record.workTitle}</h5>
     
-                        <div className="details py-2">
+                        <div className="details ">
                             <label><b>Start-Date <label className="mx-3" /> Finish-Date</b></label>
-                                <p className="lead">{record.startDate}  --  {record.finishDate}</p>
+                                <p className="">{record.startDate}  --  {record.finishDate}</p>
                         </div>
     
                         <div className="row">
@@ -77,8 +77,6 @@ const Reports = ({ record }) => {
                             </div>
                             <div className="col text-end px-5 my-2">
                                     <button type="submit" className="btn" onClick={handleDelete}><i class="bi bi-trash text-danger"></i></button>
-                                    <a href="" className="btn"><i class="bi bi-eye text-warning"></i></a>
-                                    <button className="btn"><i class="bi bi-pencil text-primary"></i></button>
                             </div>    
                         </div>    
                 </motion.div>
